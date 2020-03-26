@@ -1,3 +1,4 @@
+import sys
 # операции со строками
 
 s = 'spam'
@@ -27,6 +28,19 @@ print(help(s.join))
 
 print('.'.join(['ab', 'pq', 'rs']))  # 'ab.pq.rs'
 
+my_file_name = 'C:\\new\\text.dat'
+my_file_name2 = r'C:\new\text.dat'
+
+print(my_file_name)
+print(my_file_name2)
+
+for c in 'developer':
+    print(c, end='')
+
+dead = 5
+print('\nThat is %d dead bird' % dead)
+
+print('My {1[spam]} runs {0.platform}'.format(sys, {'spam': 'laptop'}))
 
 
 
